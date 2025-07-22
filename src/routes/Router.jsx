@@ -29,7 +29,10 @@ export const Router = () => {
               <Route path="/" element={<Home />} />
               <Route path="/lists/:listId" element={<ListIndex />} />
               <Route path="/list/new" element={<NewList />} />
-              <Route path="/lists/:listId/tasks/:taskId" element={<EditTask />} />
+              <Route
+                path="/lists/:listId/tasks/:taskId"
+                element={<EditTask />}
+              />
               <Route path="/lists/:listId/edit" element={<EditList />} />
             </>
           ) : (
