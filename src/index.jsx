@@ -1,5 +1,5 @@
 import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client'; // ← 修正ポイント！
 import './index.css';
 import App from './App';
 import { Provider } from 'react-redux';
@@ -11,16 +11,14 @@ axios.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
-
   return config;
 });
 
-const root = document.getElementById('root');
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById('root')); // ← 修正ポイント！
+root.render(
   <StrictMode>
     <Provider store={store}>
       <App />
     </Provider>
-  </StrictMode>,
-  root,
+  </StrictMode>
 );
