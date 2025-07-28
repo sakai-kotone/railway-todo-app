@@ -1,17 +1,18 @@
 import React, { useCallback, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './index.css';
 import { useSignup } from '~/hooks/useSignup';
 import { useId } from '~/hooks/useId';
+import AppButton from '~/components/AppButton';
 
 const SignUp = () => {
   const auth = useSelector((state) => state.auth.token !== null);
-
+  const navigate = useNavigate();
   const id = useId();
+
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -21,7 +22,6 @@ const SignUp = () => {
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
       setIsSubmitting(true);
 
       signup({ email, name, password })
@@ -36,7 +36,8 @@ const SignUp = () => {
   );
 
   if (auth) {
-    return <useNavigate to="/" />;
+    navigate('/');
+    return null;
   }
 
   return (
@@ -89,13 +90,9 @@ const SignUp = () => {
           />
         </fieldset>
         <div className="signup__form_actions">
-          <Link className="app_button" data-variant="secondary" to="/signin">
-            Login
-          </Link>
+          <AppButton label="Login" to="/signin" isLink variant="secondary" />
           <div className="signup__form_actions_spacer"></div>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Register
-          </button>
+          <AppButton label="Register" type="submit" disabled={isSubmitting} />
         </div>
       </form>
     </main>

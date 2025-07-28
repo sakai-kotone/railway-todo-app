@@ -1,7 +1,8 @@
 import { useCallback, useState, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import AppButton from '~/components/AppButton';
 import './index.css';
 import { setCurrentList } from '~/store/list';
 import { fetchTasks, updateTask, deleteTask } from '~/store/task';
@@ -9,7 +10,6 @@ import { useId } from '~/hooks/useId';
 
 const EditTask = () => {
   const id = useId();
-
   const { listId, taskId } = useParams();
   const history = useNavigate();
   const dispatch = useDispatch();
@@ -17,7 +17,6 @@ const EditTask = () => {
   const [title, setTitle] = useState('');
   const [detail, setDetail] = useState('');
   const [done, setDone] = useState(false);
-
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -41,7 +40,6 @@ const EditTask = () => {
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
       setIsSubmitting(true);
 
       void dispatch(updateTask({ id: taskId, title, detail, done }))
@@ -123,21 +121,20 @@ const EditTask = () => {
           </div>
         </fieldset>
         <div className="edit_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
-            Cancel
-          </Link>
+          <AppButton label="Cancel" to="/" isLink variant="secondary" />
           <div className="edit_list__form_actions_spacer"></div>
-          <button
-            type="button"
-            className="app_button edit_list__form_actions_delete"
-            disabled={isSubmitting}
+          <AppButton
+            label="Delete"
             onClick={handleDelete}
-          >
-            Delete
-          </button>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Update
-          </button>
+            type="button"
+            disabled={isSubmitting}
+            className="edit_list__form_actions_delete"
+          />
+          <AppButton
+            label="Update"
+            type="submit"
+            disabled={isSubmitting}
+          />
         </div>
       </form>
     </main>

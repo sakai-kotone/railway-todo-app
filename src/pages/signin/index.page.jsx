@@ -1,25 +1,25 @@
 import React, { useCallback, useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useLogin } from '~/hooks/useLogin';
 import { useId } from '~/hooks/useId';
+import AppButton from '~/components/AppButton';
 import './index.css';
 
 const SignIn = () => {
   const auth = useSelector((state) => state.auth.token !== null);
   const { login } = useLogin();
-
+  const navigate = useNavigate();
   const id = useId();
+
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
       setIsSubmitting(true);
 
       login({ email, password })
@@ -34,7 +34,8 @@ const SignIn = () => {
   );
 
   if (auth) {
-    return <useNavigate to="/" />;
+    navigate('/');
+    return null;
   }
 
   return (
@@ -69,13 +70,9 @@ const SignIn = () => {
           />
         </fieldset>
         <div className="signin__form_actions">
-          <Link className="app_button" data-variant="secondary" to="/signup">
-            Register
-          </Link>
+          <AppButton label="Register" to="/signup" isLink variant="secondary" />
           <div className="signin__form_actions_spacer"></div>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Login
-          </button>
+          <AppButton label="Login" type="submit" disabled={isSubmitting} />
         </div>
       </form>
     </main>

@@ -5,11 +5,12 @@ import { Sidebar } from '~/components/Sidebar';
 import Home from '~/pages/index.page';
 import NotFound from '~/pages/404';
 import SignIn from '~/pages/signin/index.page';
+import SignUp from '~/pages/signup/index.page';
 import NewList from '~/pages/list/new/index.page';
 import EditTask from '~/pages/lists/[listId]/tasks/[taskId]/index.page';
-import SignUp from '~/pages/signup/index.page';
 import EditList from '~/pages/lists/[listId]/edit/index.page';
 import ListIndex from '~/pages/lists/[listId]/index.page';
+import DevSignUp from '~/pages/dev-signup/index.page'; // ←✨ 追加
 
 export const Router = () => {
   const auth = useSelector((state) => state.auth.token !== null);
@@ -22,6 +23,7 @@ export const Router = () => {
           {/* 認証不要ページ */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/dev-signup" element={<DevSignUp />} /> {/* ←✨ 追加ルート */}
 
           {/* 認証ありページ */}
           {auth ? (

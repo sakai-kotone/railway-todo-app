@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { BackButton } from '~/components/BackButton';
+import AppButton from '~/components/AppButton';
 import './index.css';
 import { createList, setCurrentList } from '~/store/list/index';
 import { useId } from '~/hooks/useId';
@@ -12,14 +13,12 @@ const NewList = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState('');
-
   const [errorMessage, setErrorMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = useCallback(
     (event) => {
       event.preventDefault();
-
       setIsSubmitting(true);
 
       void dispatch(createList({ title }))
@@ -57,13 +56,9 @@ const NewList = () => {
           />
         </fieldset>
         <div className="new_list__form_actions">
-          <Link to="/" data-variant="secondary" className="app_button">
-            Cancel
-          </Link>
+          <AppButton label="Cancel" to="/" isLink variant="secondary" />
           <div className="new_list__form_actions_spacer"></div>
-          <button type="submit" className="app_button" disabled={isSubmitting}>
-            Create
-          </button>
+          <AppButton label="Create" type="submit" disabled={isSubmitting} />
         </div>
       </form>
     </main>
