@@ -21,6 +21,8 @@ const SignIn = () => {
     (event) => {
       event.preventDefault();
       setIsSubmitting(true);
+      console.log(email)
+      console.log(password)
 
       login({ email, password })
         .catch((err) => {

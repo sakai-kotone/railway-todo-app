@@ -25,8 +25,7 @@ export const Router = () => {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/dev-signup" element={<DevSignUp />} /> {/* ←✨ 追加ルート */}
 
-          {/* 認証ありページ */}
-          {auth ? (
+       
             <>
               <Route path="/" element={<Home />} />
               <Route path="/lists/:listId" element={<ListIndex />} />
@@ -37,9 +36,7 @@ export const Router = () => {
               />
               <Route path="/lists/:listId/edit" element={<EditList />} />
             </>
-          ) : (
-            <Route path="*" element={<Navigate to="/signin" replace />} />
-          )}
+          
 
           {/* 未定義ページ */}
           <Route path="*" element={<NotFound />} />
